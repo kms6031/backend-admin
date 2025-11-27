@@ -11,19 +11,28 @@ exports.login = async (req, res, next) => {
 
         // 입력 값 검증
         if (!email || !password) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json(
-                errorResponse(MESSAGES.VALIDATION.INVALID_INPUT, null, HTTP_STATUS.BAD_REQUEST)
-            );
+            return res
+                .status(HTTP_STATUS.BAD_REQUEST)
+                .json(
+                    errorResponse(
+                        MESSAGES.VALIDATION.INVALID_INPUT,
+                        null,
+                        HTTP_STATUS.BAD_REQUEST
+                    )
+                );
         }
 
         const result = await authService.login(email, password);
+
         res.cookie('token', result.token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7일
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
         });
 
-        res.json(successResponse(MESSAGES.AUTH.LOGIN_SUCCESS, result, HTTP_STATUS.OK));
+        res.json(
+            successResponse(MESSAGES.AUTH.LOGIN_SUCCESS, result, HTTP_STATUS.OK)
+        );
     } catch (error) {
         next(error);
     }
@@ -38,21 +47,34 @@ exports.register = async (req, res, next) => {
 
         // 입력 값 검증
         if (!email || !password || !name) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json(
-                errorResponse(MESSAGES.VALIDATION.INVALID_INPUT, null, HTTP_STATUS.BAD_REQUEST)
-            );
+            return res
+                .status(HTTP_STATUS.BAD_REQUEST)
+                .json(
+                    errorResponse(
+                        MESSAGES.VALIDATION.INVALID_INPUT,
+                        null,
+                        HTTP_STATUS.BAD_REQUEST
+                    )
+                );
         }
 
         const result = await authService.register(email, password, name);
+
         res.cookie('token', result.token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
-        res.status(HTTP_STATUS.CREATED).json(
-            successResponse(MESSAGES.AUTH.REGISTER_SUCCESS, result, HTTP_STATUS.CREATED)
-        );
+        res
+            .status(HTTP_STATUS.CREATED)
+            .json(
+                successResponse(
+                    MESSAGES.AUTH.REGISTER_SUCCESS,
+                    result,
+                    HTTP_STATUS.CREATED
+                )
+            );
     } catch (error) {
         next(error);
     }
@@ -64,7 +86,9 @@ exports.register = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
     try {
         res.clearCookie('token');
-        res.json(successResponse(MESSAGES.AUTH.LOGOUT_SUCCESS, null, HTTP_STATUS.OK));
+        res.json(
+            successResponse(MESSAGES.AUTH.LOGOUT_SUCCESS, null, HTTP_STATUS.OK)
+        );
     } catch (error) {
         next(error);
     }
@@ -103,12 +127,23 @@ exports.changePassword = async (req, res, next) => {
         const { oldPassword, newPassword } = req.body;
 
         if (!oldPassword || !newPassword) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json(
-                errorResponse(MESSAGES.VALIDATION.INVALID_INPUT, null, HTTP_STATUS.BAD_REQUEST)
-            );
+            return res
+                .status(HTTP_STATUS.BAD_REQUEST)
+                .json(
+                    errorResponse(
+                        MESSAGES.VALIDATION.INVALID_INPUT,
+                        null,
+                        HTTP_STATUS.BAD_REQUEST
+                    )
+                );
         }
 
-        const result = await authService.changePassword(req.userId, oldPassword, newPassword);
+        const result = await authService.changePassword(
+            req.userId,
+            oldPassword,
+            newPassword
+        );
+
         res.json(successResponse(result.message, null, HTTP_STATUS.OK));
     } catch (error) {
         next(error);
