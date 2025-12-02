@@ -2,11 +2,11 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// 모델 연결
-const User = require('./models/User');
-const Hotel = require('./models/Hotel');
-const Reservation = require('./models/Reservation');
-const Coupon = require('./models/Coupon'); // ⬅️ [NEW] 쿠폰 모델 추가
+// 🔴 [수정됨] 모델 파일 불러올 때 .cjs 확장자 필수!
+const User = require('./models/User.cjs');
+const Hotel = require('./models/Hotel.cjs');
+const Reservation = require('./models/Reservation.cjs');
+const Coupon = require('./models/Coupon.cjs'); 
 
 const connectDB = async () => {
     try {
@@ -23,10 +23,11 @@ const seedData = async () => {
 
     try {
         console.log('🧹 기존 데이터 삭제 중...');
+        // 에러 방지를 위해 try-catch로 감싸서 삭제 시도
         try { await User.deleteMany({}); } catch(e) {}
         try { await Hotel.deleteMany({}); } catch(e) {}
         try { await Reservation.deleteMany({}); } catch(e) {}
-        try { await Coupon.deleteMany({}); } catch(e) {} // ⬅️ 기존 쿠폰 삭제
+        try { await Coupon.deleteMany({}); } catch(e) {}
 
         // 비밀번호 암호화
         const salt = await bcrypt.genSalt(10);
@@ -69,7 +70,7 @@ const seedData = async () => {
             images: ['https://via.placeholder.com/300x200?text=Grand+Hotel'],
         });
 
-        // 3. 쿠폰 생성 (NEW!)
+        // 3. 쿠폰 생성
         console.log('🎟️ 쿠폰 데이터 생성 중...');
         await Coupon.create({
             name: '신규가입 환영 쿠폰',

@@ -1,4 +1,5 @@
-const Reservation = require('../models/Reservation');
+// 🔴 [수정] 뒤에 .cjs 를 꼭 붙여야 합니다!
+const Reservation = require('../models/Reservation.cjs');
 
 // 1. 모든 예약 목록 가져오기
 exports.getAllReservations = async (req, res) => {
@@ -11,16 +12,16 @@ exports.getAllReservations = async (req, res) => {
     }
 };
 
-// 2. 예약 상태 변경하기 (나중에 쓸 기능 미리 추가)
+// 2. 예약 상태 변경하기
 exports.updateStatus = async (req, res) => {
     try {
-        const { id } = req.params;   // 주소에 있는 id
-        const { status } = req.body; // 보낼 데이터 (예: 'confirmed')
+        const { id } = req.params;
+        const { status } = req.body;
 
         const updatedReservation = await Reservation.findByIdAndUpdate(
             id,
             { status: status },
-            { new: true } // 업데이트된 내용을 바로 반환
+            { new: true }
         );
 
         res.status(200).json(updatedReservation);

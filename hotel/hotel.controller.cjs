@@ -1,5 +1,5 @@
 // models 폴더에 있는 Hotel 모델을 가져옵니다.
-const Hotel = require('../models/Hotel');
+const Hotel = require('../models/Hotel.cjs');
 
 // 1. 호텔(객실) 등록하기 (Create)
 exports.createHotel = async (req, res) => {

@@ -1,4 +1,4 @@
-const Coupon = require('../models/Coupon'); // 방금 만든 모델 가져오기
+const Coupon = require('../models/Coupon.cjs'); // 방금 만든 모델 가져오기
 
 // 1. 쿠폰 생성하기 (관리자용)
 exports.createCoupon = async (req, res) => {

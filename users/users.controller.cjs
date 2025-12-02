@@ -1,5 +1,5 @@
 // 중요: '../models/User'는 models 폴더 안의 User.js를 가져오라는 뜻입니다.
-const User = require('../models/User');
+const User = require('../models/User.cjs');
 
 // 모든 회원 목록 가져오기 (요리사 역할)
 exports.getAllUsers = async (req, res) => {

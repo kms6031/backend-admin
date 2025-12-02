@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-// 방금 작성한 컨트롤러 파일 연결
-const hotelController = require('./hotel.controller');
 
-// 기본 주소: /api/hotel
+// 🔴 .cjs 확인!
+const hotelController = require('./hotel.controller.cjs');
 
 router.post('/', hotelController.createHotel);       // 등록
 router.get('/', hotelController.getHotels);          // 전체 조회
