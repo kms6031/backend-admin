@@ -1,10 +1,11 @@
 const corsOptions = {
-    // 프론트엔드 주소 (기본값 설정)
-    origin: process.env.FRONT_ORIGIN || 'http://localhost:5173',
+    // [수정됨] 도커(80)와 로컬개발(5173) 모두 허용
+    origin: ['http://localhost', 'http://localhost:5173'], 
+    
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    maxAge: 86400 // 24시간
+    maxAge: 86400
 };
 
 module.exports = { corsOptions };

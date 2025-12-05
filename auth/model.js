@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: [true, '이메일은 필수입니다'],
+        required: [true, '이메일은 필수입니다 '],
         unique: true,
         lowercase: true,
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, '유효한 이메일을 입력하세요']
